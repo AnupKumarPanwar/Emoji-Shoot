@@ -1,0 +1,166 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+@import "www/lib/ionicons/scss/ionicons";
+@import "./emoji";
+
+.slider {
+	height: 100%;
+}
+.scroll {
+	width: 100%;
+}
+.col-center {
+	text-align: center;
+}
+
+.emojimon-title {
+	font-size: 40px;
+	font-family: $font-family-light-sans-serif;
+	font-weight: 100;
+	margin: 40px 0;
+	letter-spacing: 8px;
+}
+
+.title-emoji {
+	width: 39px;
+	max-height: 45px;
+  -webkit-transform: translateY(5px) translateX(-2px);
+  transform: translateY(5px) translateX(-2px);
+}
+.tutorial-emoji {
+	width: 25%;
+	max-height: 100px;
+	margin: 10px;
+}
+
+.score {
+	font-family: $font-family-light-sans-serif;
+	font-weight: 200;
+	display: inline-block;
+  font-size: 16px;
+  width: auto;
+ 	padding: 5px;
+
+  background-color: transparentize($energized, 0.3);
+  color: #333;
+  border: 3px solid #333;
+  #game-container & {
+  	position: absolute;
+  	right: 0;
+  	padding: 0 10px;
+  	font-size: 28px;
+  	margin-right: 10px;
+  }
+  .scores & {
+  	margin: 4px 0;
+  	width: 50%;
+  	float: left;
+  	&:first-child {
+  		border-right-width: 0;
+  	}
+  }
+  &.top {
+  	font-weight: bold;
+  }
+}
+
+.scores {
+	margin: 5px 0;
+	overflow: hidden;
+}
+.tutorial {
+	font-size:36px;
+	padding: 8px;
+	margin: 4px;
+	display: inline-block;
+	color: #333;
+	transition: opacity 0.1s ease-in-out;
+	&:hover {
+		opacity: 0.6;
+	}
+}
+.item-stacked-label {
+	text-align: left;
+	.input-label {
+		font-weight: bold;
+	}
+}
+
+.reason {
+	font-family: $font-family-light-sans-serif;
+	font-weight: 200;
+	font-size: 16px;
+}
+[animate-on-change] {
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+}
+[animate-on-change].changed {
+  background-color: $balanced;
+}
+
+.leaderboard {
+.button.button-positive {
+	&:hover, &.active, &:focus, &.activated {
+		box-shadow: none;
+		border-color: #0c60ee;
+	  background-color: #387ef5;
+	  color: #fff;
+	  cursor: initial;
+		}
+	}
+
+	.item:first-child {
+		background-color: $balanced;
+	}
+	.item i {
+		color: #666;
+		font-size: 20px;
+		display: inline-block;
+		float: right;
+	}
+	.item .ion-ribbon-b {
+		color: #fff;
+		font-size: 16px;
+		float: none;
+	}
+}
+.bar-energized .button {
+	margin: 0;
+}
+
+.game-type--omgwtf {
+	#game-container,
+	.bar {
+		background-color: #222;
+	}
+}
+
+.input-label--full-width {
+	width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.modes .item-radio {
+	display: inline-block;
+}

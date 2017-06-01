@@ -1,0 +1,141 @@
+emoji {
+	width: 49px;
+  height: 49px;
+	padding: 0px;
+	box-sizing: border-box;
+	z-index: 10;
+  background-size: contain;
+  display: inline-block;
+  position: absolute;
+  margin-top: -49px;
+  -webkit-transition: transform 0s linear;
+  transition: transform 0s linear;
+	top: 0;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+
+	.fatten & {
+		width: 64px;
+		height: 64px;
+		margin-top: -64px;
+	}
+}
+emoji:not([type="ghost"]) {
+	.ghostify & {
+		opacity: 0.15;
+		-webkit-filter: saturate(0.2) brightness(1.7);
+	}
+}
+emoji[type="japanese_ogre"] {
+	-webkit-animation: snowside 3s ease-in-out forwards infinite;
+  animation: snowside 3s ease-in-out forwards infinite;
+}
+emoji[type="japanese_ogre"][data-variant="1"] {
+	-webkit-animation: snowside 3s ease-in-out forwards infinite;
+  animation: snowside 3s ease-in-out forwards infinite;
+}
+
+  emoji[type="japanese_ogre"][data-variant="2"] {
+	-webkit-animation: snowside 4s cubic-bezier forwards infinite;
+  animation: snowside 4s cubic-bezier forwards infinite;
+  	-webkit-animation-direction: reverse;
+  	animation-direction: reverse;
+  }
+ emoji[type="ghost"] {
+ 	-webkit-animation: snowside 12s ease-in-out forwards infinite;
+  animation: snowside 4s ease-in-out forwards infinite;
+ }
+
+emoji[type="bomb"] {
+	&:after {
+		content: '-5';
+		display: block;
+		color: red;
+		position: absolute;
+		font-weight: bold;
+		font-size: 10px;
+		top: 0;
+		right:-5px;
+	}
+}
+emoji[type="watch"] {
+	&:after {
+		content: '-3';
+		display: block;
+		color: red;
+		position: absolute;
+		font-weight: bold;
+		font-size: 10px;
+		top: 0;
+		right:0;
+	}
+}
+@-webkit-keyframes snowside {
+ 25% {
+    margin-left: 10%
+      }
+  50% {
+    margin-left: -10%
+  }
+  100% {
+    margin-left: 0px
+  }
+}
+
+@keyframes snowside {
+  25% {
+    margin-left: 10%
+      }
+  50% {
+    margin-left: -10%
+  }
+  100% {
+    margin-left: 0px
+  }
+}
+
+@keyframes snowside {
+  25% {
+    margin-left: 10%
+      }
+  50% {
+    margin-left: -10%
+  }
+  100% {
+    margin-left: 0px
+  }
+}
+
+
+.game-type--omgwtf emoji[type="rage"] {
+	-webkit-animation: omgwtf 4s  cubic-bezier(.12,.48,.90,.54)forwards infinite;
+	animation: omgwtf 4s  cubic-bezier(.12,.48,.90,.54) forwards infinite;
+};
+
+.game-type--omgwtf emoji[type="rage"][data-variant="2"] {
+	-webkit-animation: omgwtf 7s  cubic-bezier(.85,.12,.43,.56) forwards infinite;
+	animation: omgwtf 7s  cubic-bezier(.85,.12,.1,.3) forwards infinite;
+};
+.game-type--omgwtf emoji[type="grin"] {
+	-webkit-animation: snowside 5s cubic-bezier(.85,.12,.43,.56) forwards infinite;
+	animation: snowside 5s cubic-bezier(.85,.12,.43,.56) forwards infinite;
+	-webkit-animation-direction: reverse;
+	animation-direction: reverse;
+};
+
+
+@keyframes omgwtf {
+	10% {
+		margin-left: -10%
+	}
+	22% {
+		margin-left: 8%
+	}
+	67% {
+		margin-left: 0%
+	}
+	100% {
+		margin-left: -5%
+	}
+}
