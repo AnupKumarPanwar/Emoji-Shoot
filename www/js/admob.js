@@ -31,9 +31,9 @@ function initApp() {
         position: AdMob.AD_POSITION.BOTTOM_CENTER
     } );
     
-    AdMob.prepareInterstitial({
-        adId: admobid.interstitial
-    });
+    // AdMob.prepareInterstitial({
+    //     adId: admobid.interstitial
+    // });
 
     // AdMob.showInterstitial();
     // AdMob.prepareRewardVideoAd({

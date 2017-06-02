@@ -29,10 +29,7 @@ controllers
 
 
 
-		AdMob.prepareRewardVideoAd({
-		    adId: admobid.reward,
-		    autoShow:true
-		});
+		
 
 
 		
@@ -54,14 +51,24 @@ controllers
 
 		if ($scope.game.challengeMod)
 		 {
-		 	$http.get('http://hashbnm.16mb.com/emojishoot/test.php')
+		 	$http.get('http://hashbnm.16mb.com/emojishoot/createchallenge.php?')
+				.then(function(){
+					$scope.game.challengeMod=!$scope.game.challengeMod;
+				});
+		 }
+		 else if ($scope.game.challengeId!=0 && $scope.game.challengeId!='0') 
+		 {
+		 	$http.get('http://hashbnm.16mb.com/emojishoot/acceptchallenge.php')
 				.then(function(){
 					$scope.game.challengeMod=!$scope.game.challengeMod;
 				});
 		 }
 
 		
-
+		 AdMob.prepareRewardVideoAd({
+		    adId: admobid.reward,
+		    autoShow:true
+		});
 
 
 
@@ -207,7 +214,20 @@ controllers
 	function newGame(){
 		if(!$scope.game.hasEverPlayed) {
 			$state.transitionTo('tutorial',$scope, {reload: true})
+
+			window.plugins.OneSignal.getIds(function(ids) {
+			  $scope.game.userId=ids.userId;
+			  localStorage.userId=ids.userId;
+			});
+
 		} else {
+			if ($scope.game.userId==0) {
+				window.plugins.OneSignal.getIds(function(ids) {
+				  $scope.game.userId=ids.userId;
+				  localStorage.userId=ids.userId;
+				});	
+			}
+
 			$scope.game.start();
 			document.body.classList.remove('ghostify');
 			document.body.classList.remove('fatten');

@@ -1,9 +1,62 @@
 controllers
 
-.controller('StartCtrl', function($scope, $timeout, $compile, Game, $state,$cordovaSocialSharing, $http) {
+.controller('StartCtrl', function($scope, $timeout, $compile, Game, $state,$cordovaSocialSharing, $http, $stateParams) {
 	$scope.game = Game;
 
 	$scope.game.challengeMod=false;
+
+
+
+
+
+	document.addEventListener("deviceready", function onDeviceReady(w) {
+
+	  // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+
+	        var notificationOpenedCallback = function(jsonData) {
+	          // alert("Notification received:\n" + JSON.stringify(jsonData));
+
+	          if (jsonData.action.actionID=="accept") 
+	          {
+	          	if($scope.game.cash>=jsonData.additionalData.amount)
+	          	{
+	            $scope.game.challengeId=jsonData.additionalData.challengeid;
+	            $scope.game.bid=jsonData.additionalData.amount;
+	            $state.go('game', {});
+	        	}
+	        	else
+	        	{
+	        		alert('Sorry! You don\'t have enough coins:(\nPlease play the game and earn coins.');
+	        	}
+	          }
+	          else if (jsonData.action.actionID=="reject")
+	          {
+	            // alert('Challenge Denied');
+	          }
+
+	          // console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+	        };
+	        
+	        window.plugins.OneSignal
+	          .startInit("9c182549-2c3b-47a6-81ba-d77fee2909e1")
+	          .handleNotificationOpened(notificationOpenedCallback)
+	          .endInit();
+
+	          // alert('yo');
+          	// alert('yo'+OneSignal.idsAvailable.playerId);
+          	// alert('yo'+window.plugins.OneSignal.idsAvailable.playerId);
+
+          	// window.plugins.OneSignal.getIds(function(ids) {
+          	//   console.log('getIds: ' + JSON.stringify(ids));
+          	//   alert("userId = " + ids.userId + ", pushToken = " + ids.pushToken);
+          	// });
+
+	},false);
+
+
+
+
+
 
 		$scope.sendChallenge=function()
 		{	

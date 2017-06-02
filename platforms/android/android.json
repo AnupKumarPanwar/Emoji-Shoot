@@ -35,6 +35,10 @@
                         {
                             "xml": "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"OneSignalPush\"><param name=\"android-package\" value=\"com.plugin.gcm.OneSignalPush\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -49,6 +53,18 @@
                         {
                             "xml": "<provider android:authorities=\"${applicationId}.sharing.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"nl.xservices.plugins.FileProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/sharing_paths\" /></provider>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<amazon:enable-feature android:name=\"com.amazon.device.messaging\" android:required=\"false\" xmlns:amazon=\"http://schemas.amazon.com/apk/res/android\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:exported=\"false\" android:name=\"com.onesignal.ADMMessageHandler\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<receiver android:name=\"com.onesignal.ADMMessageHandler$Receiver\" android:permission=\"com.amazon.device.messaging.permission.SEND\"><intent-filter><action android:name=\"com.amazon.device.messaging.intent.REGISTRATION\" /><action android:name=\"com.amazon.device.messaging.intent.RECEIVE\" /><category android:name=\"com.anupkumarpanwar.game.emoji.shoot.dynamite\" /></intent-filter></receiver>",
+                            "count": 1
                         }
                     ],
                     "/*": [
@@ -62,6 +78,20 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"com.amazon.device.messaging.permission.RECEIVE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<permission android:name=\"com.anupkumarpanwar.game.emoji.shoot.dynamite.permission.RECEIVE_ADM_MESSAGE\" android:protectionLevel=\"signature\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"com.anupkumarpanwar.game.emoji.shoot.dynamite.permission.RECEIVE_ADM_MESSAGE\" />",
                             "count": 1
                         }
                     ]
@@ -98,6 +128,9 @@
             "PACKAGE_NAME": "com.anupkumarpanwar.game.emoji.shoot.dynamite"
         },
         "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "com.anupkumarpanwar.game.emoji.shoot.dynamite"
+        },
+        "onesignal-cordova-plugin": {
             "PACKAGE_NAME": "com.anupkumarpanwar.game.emoji.shoot.dynamite"
         }
     },
@@ -157,6 +190,14 @@
             "clobbers": [
                 "window.plugins.socialsharing"
             ]
+        },
+        {
+            "id": "onesignal-cordova-plugin.OneSignal",
+            "file": "plugins/onesignal-cordova-plugin/www/OneSignal.js",
+            "pluginId": "onesignal-cordova-plugin",
+            "clobbers": [
+                "OneSignal"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -169,6 +210,7 @@
         "cordova-plugin-extension": "1.5.1",
         "cordova-plugin-admobpro": "2.28.3",
         "es6-promise-plugin": "4.1.0",
-        "cordova-plugin-x-socialsharing": "5.1.8"
+        "cordova-plugin-x-socialsharing": "5.1.8",
+        "onesignal-cordova-plugin": "2.1.1"
     }
 }
