@@ -21,6 +21,9 @@ factories
 		this.cash= localStorage.cash || 10;
 		localStorage.cash=this.cash;
 
+		this.bid=Math.floor(this.cash/3);
+
+		this.challengeMod=false;
 
 		if(localStorage.hasEverPlayed) {
 			this.hasEverPlayed = true;

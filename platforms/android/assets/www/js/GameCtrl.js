@@ -1,5 +1,5 @@
 controllers
-.controller('GameCtrl', function($scope, $timeout, $compile, Game, $state, Emoji) {
+.controller('GameCtrl', function($scope, $timeout, $compile, Game, $state, Emoji, $http) {
 
 	var container = document.getElementById('game-container');
 
@@ -15,6 +15,14 @@ controllers
 
 
 	$scope.counter = localStorage.counter || 0;
+
+
+
+
+
+
+
+
 
 	$scope.endGame = function(reasonLost) {
 
@@ -39,8 +47,20 @@ controllers
 				localStorage.cash=$scope.game.cash;	
 			}
 
+			$scope.game.score=0;
+
 		});
 
+
+		if ($scope.game.challengeMod)
+		 {
+		 	$http.get('http://hashbnm.16mb.com/emojishoot/test.php')
+				.then(function(){
+					$scope.game.challengeMod=!$scope.game.challengeMod;
+				});
+		 }
+
+		
 
 
 

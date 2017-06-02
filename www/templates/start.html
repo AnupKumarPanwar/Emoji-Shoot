@@ -4,6 +4,9 @@
 	</div>
 
 
+
+
+
 	<div class="row row-center">
   	<div class="col col-center">
 
@@ -14,6 +17,28 @@
 		    <input type="text" placeholder="Anonymous" ng-model="game.username" ng-change="usernameChange()">
 
 		  </label>
+
+
+
+		  <!-- <div style="position: fixed;top: 74px;ba;background: rgb(255, 255, 255);height: 100vh;z-index: 100;width: 100%;padding-top: 36%;left: 0px;padding-left: 20px;padding-right: 20px;"> -->
+		 <!--  <label class="item item-input item-stacked-label" >
+		  <span class="input-label">Challenge Amount</span>
+		  <input type="text" placeholder="Coins" ng-model="game.username" ng-change="usernameChange()">
+		  </label> -->
+		  <!-- </div> -->
+
+
+
+		  <div style="width: 100%;height: 100vh;background: rgba(0, 0, 0, 0.86);position: fixed;top: 0px;left: 0px;z-index: 10;text-align: -webkit-center;padding-top: 51%;" ng-show="game.challengeMod">
+		  <div style="width: 100%; height: 100%; position: fixed; top: 0px; z-index: -1" ng-click="sendChallenge()"></div>
+		  	<div style="background: white;width: 86%;text-align: center;height: 250px;border-radius: 20px;text-align: -webkit-center; padding-top: 25px;">
+		  		<h2>Challenge Amount</h2><br>
+		  		<input type="number" placeholder="{{game.bid}}" style="height: 55px;border: solid rgba(0, 0, 0, 0.11); width: 70%; font-size: xx-large; text-align: center;" value="{{game.bid}}" min="1" max="{{game.cash}}">
+<br>
+		  		<a href="#/game" style="background-color: #4CAF50;border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px;">Play</a>
+		  	</div>
+		  </div>
+
 			<div class="scores">
 
 			<h3 ng-show="game.score < game.topScore && game.hasPlayed">
@@ -66,6 +91,8 @@
 		<a style="font-size: 40px;z-index: 100;width: 100%;top: 1px;text-align: center;left: 0px;position: absolute;color: white;font-family: fantasy;">
 		{{game.cash}}
 		<img src="img/goldcoin.png" style="position: relative; top: 2px"> 
+
+		<img src="img/vs.png" style="width: 35px; top: 5px; position: absolute; right: 8px;" ng-show="game.cash>=5" ng-click=sendChallenge()>
 		</a>
 
   	</div>

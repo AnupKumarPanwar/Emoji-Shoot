@@ -1,7 +1,21 @@
 controllers
 
-.controller('StartCtrl', function($scope, $timeout, $compile, Game, $state,$cordovaSocialSharing) {
+.controller('StartCtrl', function($scope, $timeout, $compile, Game, $state,$cordovaSocialSharing, $http) {
 	$scope.game = Game;
+
+	$scope.game.challengeMod=false;
+
+		$scope.sendChallenge=function()
+		{	
+			// alert('y');
+			$scope.game.challengeMod=!$scope.game.challengeMod;
+			// $http.get('http://hashbnm.16mb.com/emojishoot/test.php')
+			// 	.then(function(){
+
+			// 	});
+		};
+
+
 
  	$scope.shareAnywhere = function() {
  			if($scope.game.hasPlayed) {
