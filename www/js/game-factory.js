@@ -26,6 +26,7 @@ factories
 		this.challengeMod=false;
 
 		this.challengeId=0;
+		// this.challengeScore=0;
 
 		this.userId= localStorage.userId || 0;
 

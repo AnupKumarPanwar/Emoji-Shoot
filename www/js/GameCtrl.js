@@ -49,18 +49,47 @@ controllers
 		});
 
 
+
+
+
 		if ($scope.game.challengeMod)
 		 {
-		 	$http.get('http://hashbnm.16mb.com/emojishoot/createchallenge.php?')
+			$scope.game.challengeMod=!$scope.game.challengeMod;
+			if ($scope.game.cash>=$score.game.bid)
+			{
+		 	$http.get('http://chatburn.16mb.com/emojishoot/createchallenge.php?userid='+$scope.game.userId+'&amount='+$scope.game.bid+'&score='+$score.game.score)
 				.then(function(){
-					$scope.game.challengeMod=!$scope.game.challengeMod;
 				});
+			}
+			else
+			{
+				alert('Sorry! You don\'t have enough coins:(');
+			}
 		 }
 		 else if ($scope.game.challengeId!=0 && $scope.game.challengeId!='0') 
 		 {
-		 	$http.get('http://hashbnm.16mb.com/emojishoot/acceptchallenge.php')
-				.then(function(){
-					$scope.game.challengeMod=!$scope.game.challengeMod;
+					// $scope.game.challengeMod=!$scope.game.challengeMod;
+		 		$http.get('http://chatburn.16mb.com/emojishoot/acceptchallenge.php?amount='+$scope.game.bid+'&userid='+$scope.game.userId+'&score='+$scope.game.score)
+				.then(function(data){
+					$scope.game.challengeId=0;
+					if (data.data.result=='lost') 
+					{
+						$scope.game.cash-=Number($scope.game.bid);
+						localStorage.cash=scope.game.cash;
+						alert('Sorry! You lost the Challenge :(\nYour opponent scored '+data.data.score+' points.');
+					}
+					else if (data.data.result=='won') 
+					{
+						$scope.game.cash+=Number($scope.game.bid);
+						localStorage.cash=scope.game.cash;
+						alert('Awesome! You won the Challenge :)\nYour opponent scored just '+data.data.score+' points.');
+					}
+					else if (data.data.result=='tie') 
+					{
+						// $scope.game.cash-=Number($scope.game.bid);
+						localStorage.cash=scope.game.cash;
+						alert('Awww! It\'s a tie :|\nYour opponent also scored '+data.data.score+' points.');
+					}
 				});
 		 }
 
@@ -218,13 +247,24 @@ controllers
 			window.plugins.OneSignal.getIds(function(ids) {
 			  $scope.game.userId=ids.userId;
 			  localStorage.userId=ids.userId;
+
+			  // $http.get('http://chatburn.16mb.com/emojishoot/updatescore.php?userid='+ids.userId+'&coins='+$score.game.cash)
+			  // .then(function(){
+
+			  // });
 			});
+
+
 
 		} else {
 			if ($scope.game.userId==0) {
 				window.plugins.OneSignal.getIds(function(ids) {
 				  $scope.game.userId=ids.userId;
 				  localStorage.userId=ids.userId;
+				  // $http.get('http://chatburn.16mb.com/emojishoot/updatescore.php?userid='+ids.userId+'&coins='+$score.game.cash)
+				  // .then(function(){
+
+				  // });
 				});	
 			}
 

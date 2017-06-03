@@ -14,14 +14,15 @@ controllers
 	  // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
 	        var notificationOpenedCallback = function(jsonData) {
-	          // alert("Notification received:\n" + JSON.stringify(jsonData));
+	          alert("Notification received:\n" + JSON.stringify(jsonData));
 
 	          if (jsonData.action.actionID=="accept") 
 	          {
-	          	if($scope.game.cash>=jsonData.additionalData.amount)
+	          	if($scope.game.cash>=jsonData.payload.additionalData.amount)
 	          	{
-	            $scope.game.challengeId=jsonData.additionalData.challengeid;
-	            $scope.game.bid=jsonData.additionalData.amount;
+	            $scope.game.challengeId=jsonData.payload.additionalData.challengeid;
+	            $scope.game.bid=jsonData.payload.additionalData.amount;
+	            // $scope.game.challengeScore=jsonData.additionalData.challengescore;
 	            $state.go('game', {});
 	        	}
 	        	else
