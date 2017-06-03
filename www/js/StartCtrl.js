@@ -24,9 +24,10 @@ controllers
 				$state.go('result', {won:1, score:jsonData.notification.payload.additionalData.score});
 	          	$scope.game.cash=Number($scope.game.cash)+Number(jsonData.notification.payload.additionalData.amount);
 	          	localStorage.cash=scope.game.cash;
-	          	AdMob.prepareInterstitial({
-	          	    adId: admobid.interstitial,
-	          	    autoShow: true
+	          	
+	          	 AdMob.prepareRewardVideoAd({
+	          	    adId: admobid.reward,
+	          	    autoShow:true
 	          	});
 	          	
 	          }
@@ -35,9 +36,10 @@ controllers
 	          	$state.go('result', {won:2, score:jsonData.notification.payload.additionalData.score});
 	          	$scope.game.cash=Number($scope.game.cash)-Number(jsonData.notification.payload.additionalData.amount);
 	          	localStorage.cash=scope.game.cash;
-	          	AdMob.prepareInterstitial({
-	          	    adId: admobid.interstitial,
-	          	    autoShow: true
+	          	
+	          	 AdMob.prepareRewardVideoAd({
+	          	    adId: admobid.reward,
+	          	    autoShow:true
 	          	});
 	          }
 	          else if(jsonData.notification.payload.additionalData.result=="tie") {
@@ -45,17 +47,22 @@ controllers
 	          	// alert('Cool! It\'s a tie :| Your opponent also scored '+jsonData.notification.payload.additionalData.score+' points.');
 	          	$state.go('result', {won:3, score:jsonData.notification.payload.additionalData.score});
 	          	localStorage.cash=scope.game.cash;
-	          	AdMob.prepareInterstitial({
-	          	    adId: admobid.interstitial,
-	          	    autoShow: true
-	          	});
+	          
+	           AdMob.prepareRewardVideoAd({
+	              adId: admobid.reward,
+	              autoShow:true
+	          });
 	          }
 
 
-	          if (Number(jsonData.notification.payload.additionalData.userid) != Number($scope.game.userId)) 
-	          {
+	          // if (Number(jsonData.notification.payload.additionalData.userid) != Number($scope.game.userId)) 
+	          // {
 	          if (jsonData.action.actionID=="accept") 
 	          {
+	          	// alert(jsonData.notification.payload.additionalData.userid);
+	          	// alert($scope.game.userId);
+	          	if (jsonData.notification.payload.additionalData.userid != $scope.game.userId)
+	          	{
 	          	if($scope.game.cash>=Number(jsonData.notification.payload.additionalData.amount))
 	          	{
 	            $scope.game.challengeId=Number(jsonData.notification.payload.additionalData.challengeid);
@@ -67,12 +74,14 @@ controllers
 	        	{
 	        		alert('Sorry! You don\'t have enough coins :( Play the game and earn coins.');
 	        	}
+	        	}
+
 	          }
 	          else if (jsonData.action.actionID=="reject")
 	          {
 	            // alert('Challenge Denied');
 	          }
-	      }
+	      // }
 
 	          // console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
 	        };
