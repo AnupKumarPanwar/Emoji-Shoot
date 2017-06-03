@@ -18,7 +18,7 @@ factories
 
 
 
-		this.cash= localStorage.cash || 10;
+		this.cash= localStorage.cash || 100;
 		localStorage.cash=this.cash;
 
 		this.bid=Math.floor(this.cash/3);

@@ -3,10 +3,11 @@ controllers
 .controller('StartCtrl', function($scope, $timeout, $compile, Game, $state,$cordovaSocialSharing, $http, $stateParams) {
 	$scope.game = Game;
 
-	$scope.game.challengeMod=false;
+	// $scope.game.challengeMod=false;
 
 
 
+// console.log($state.current);
 
 
 	document.addEventListener("deviceready", function onDeviceReady(w) {
@@ -14,20 +15,20 @@ controllers
 	  // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
 	        var notificationOpenedCallback = function(jsonData) {
-	          alert("Notification received:\n" + JSON.stringify(jsonData));
+	          // alert("Notification received:\n" + JSON.stringify(jsonData));
 
 	          if (jsonData.action.actionID=="accept") 
 	          {
-	          	if($scope.game.cash>=jsonData.payload.additionalData.amount)
+	          	if($scope.game.cash>=Number(jsonData.notification.payload.additionalData.amount))
 	          	{
-	            $scope.game.challengeId=jsonData.payload.additionalData.challengeid;
-	            $scope.game.bid=jsonData.payload.additionalData.amount;
+	            $scope.game.challengeId=Number(jsonData.notification.payload.additionalData.challengeid);
+	            $scope.game.bid=Number(jsonData.notification.payload.additionalData.amount);
 	            // $scope.game.challengeScore=jsonData.additionalData.challengescore;
 	            $state.go('game', {});
 	        	}
 	        	else
 	        	{
-	        		alert('Sorry! You don\'t have enough coins:(\nPlease play the game and earn coins.');
+	        		alert('Sorry! You don\'t have enough coins :( Play the game and earn coins.');
 	        	}
 	          }
 	          else if (jsonData.action.actionID=="reject")

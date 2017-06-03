@@ -11,7 +11,7 @@ controllers
 	// localStorage.cash=this.cash;
 
 
-
+// console.log($state.current);
 
 
 	$scope.counter = localStorage.counter || 0;
@@ -38,27 +38,32 @@ controllers
 			if(data.adType == 'rewardvideo') {
 				$scope.game.cash=Number($scope.game.cash)+parseInt(Number($scope.game.score)/10);
 				localStorage.cash=$scope.game.cash;	
+				$scope.game.score=0;
 			}
-			else if(data.adType == 'interstitial') {
+			else if(data.adType == 'interstitial' && $state.current.name!="game") {
 				$scope.game.cash=Number($scope.game.cash)+parseInt(Number($scope.game.score)/15);
 				localStorage.cash=$scope.game.cash;	
+				$scope.game.score=0;
 			}
 
-			$scope.game.score=0;
 
 		});
 
 
+		// alert($scope.game.challengeMod);
 
 
 
-		if ($scope.game.challengeMod)
+		if ($scope.game.challengeMod==true)
 		 {
+			// alert($scope.game.challengeMod);
 			$scope.game.challengeMod=!$scope.game.challengeMod;
-			if ($scope.game.cash>=$score.game.bid)
+
+			if ($scope.game.cash>=Number($scope.game.bid))
 			{
-		 	$http.get('http://chatburn.16mb.com/emojishoot/createchallenge.php?userid='+$scope.game.userId+'&amount='+$scope.game.bid+'&score='+$score.game.score)
+		 	$http.get('http://chatburn.16mb.com/emojishoot/createchallenge.php?userid='+$scope.game.userId+'&amount='+$scope.game.bid+'&score='+$scope.game.score)
 				.then(function(){
+					// alert('sent');
 				});
 			}
 			else
@@ -66,9 +71,10 @@ controllers
 				alert('Sorry! You don\'t have enough coins:(');
 			}
 		 }
-		 else if ($scope.game.challengeId!=0 && $scope.game.challengeId!='0') 
+		 if ($scope.game.challengeId!=0 && $scope.game.challengeId!='0') 
 		 {
 					// $scope.game.challengeMod=!$scope.game.challengeMod;
+					// alert('accepted');
 		 		$http.get('http://chatburn.16mb.com/emojishoot/acceptchallenge.php?amount='+$scope.game.bid+'&userid='+$scope.game.userId+'&score='+$scope.game.score)
 				.then(function(data){
 					$scope.game.challengeId=0;
@@ -88,7 +94,7 @@ controllers
 					{
 						// $scope.game.cash-=Number($scope.game.bid);
 						localStorage.cash=scope.game.cash;
-						alert('Awww! It\'s a tie :|\nYour opponent also scored '+data.data.score+' points.');
+						alert('Cool! It\'s a tie :|\nYour opponent also scored '+data.data.score+' points.');
 					}
 				});
 		 }
@@ -248,7 +254,7 @@ controllers
 			  $scope.game.userId=ids.userId;
 			  localStorage.userId=ids.userId;
 
-			  // $http.get('http://chatburn.16mb.com/emojishoot/updatescore.php?userid='+ids.userId+'&coins='+$score.game.cash)
+			  // $http.get('http://chatburn.16mb.com/emojishoot/updatescore.php?userid='+ids.userId+'&coins='+$scope.game.cash)
 			  // .then(function(){
 
 			  // });
@@ -261,7 +267,7 @@ controllers
 				window.plugins.OneSignal.getIds(function(ids) {
 				  $scope.game.userId=ids.userId;
 				  localStorage.userId=ids.userId;
-				  // $http.get('http://chatburn.16mb.com/emojishoot/updatescore.php?userid='+ids.userId+'&coins='+$score.game.cash)
+				  // $http.get('http://chatburn.16mb.com/emojishoot/updatescore.php?userid='+ids.userId+'&coins='+$scope.game.cash)
 				  // .then(function(){
 
 				  // });
