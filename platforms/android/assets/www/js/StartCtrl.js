@@ -6,7 +6,6 @@ controllers
 	// $scope.game.challengeMod=false;
 
 
-
 // console.log($state.current);
 
 
@@ -17,6 +16,44 @@ controllers
 	        var notificationOpenedCallback = function(jsonData) {
 	          // alert("Notification received:\n" + JSON.stringify(jsonData));
 
+
+	          // alert(JSON.stringify(jsonData))
+
+	          if (jsonData.notification.payload.additionalData.result=="won") {
+	          	// alert('Awesome! You won the Challenge :) Your opponent scored just '+jsonData.notification.payload.additionalData.score+' points.');
+				$state.go('result', {won:1, score:jsonData.notification.payload.additionalData.score});
+	          	$scope.game.cash=Number($scope.game.cash)+Number(jsonData.notification.payload.additionalData.amount);
+	          	localStorage.cash=scope.game.cash;
+	          	AdMob.prepareInterstitial({
+	          	    adId: admobid.interstitial,
+	          	    autoShow: true
+	          	});
+	          	
+	          }
+	          else if (jsonData.notification.payload.additionalData.result=="lost") {
+	          	// alert('Aww! You lost the Challenge :( Your opponent scored '+jsonData.notification.payload.additionalData.score+' points.');
+	          	$state.go('result', {won:2, score:jsonData.notification.payload.additionalData.score});
+	          	$scope.game.cash=Number($scope.game.cash)-Number(jsonData.notification.payload.additionalData.amount);
+	          	localStorage.cash=scope.game.cash;
+	          	AdMob.prepareInterstitial({
+	          	    adId: admobid.interstitial,
+	          	    autoShow: true
+	          	});
+	          }
+	          else if(jsonData.notification.payload.additionalData.result=="tie") {
+	          	// $scope.game.cash-=Number(jsonData.notification.payload.additionalData.amount);
+	          	// alert('Cool! It\'s a tie :| Your opponent also scored '+jsonData.notification.payload.additionalData.score+' points.');
+	          	$state.go('result', {won:3, score:jsonData.notification.payload.additionalData.score});
+	          	localStorage.cash=scope.game.cash;
+	          	AdMob.prepareInterstitial({
+	          	    adId: admobid.interstitial,
+	          	    autoShow: true
+	          	});
+	          }
+
+
+	          if (Number(jsonData.notification.payload.additionalData.userid) != Number($scope.game.userId)) 
+	          {
 	          if (jsonData.action.actionID=="accept") 
 	          {
 	          	if($scope.game.cash>=Number(jsonData.notification.payload.additionalData.amount))
@@ -35,12 +72,13 @@ controllers
 	          {
 	            // alert('Challenge Denied');
 	          }
+	      }
 
 	          // console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
 	        };
 	        
 	        window.plugins.OneSignal
-	          .startInit("9c182549-2c3b-47a6-81ba-d77fee2909e1")
+	          .startInit("71b5db34-33eb-4724-971c-7272ea7848ce")
 	          .handleNotificationOpened(notificationOpenedCallback)
 	          .endInit();
 

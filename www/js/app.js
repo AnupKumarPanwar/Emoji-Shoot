@@ -52,6 +52,13 @@ angular.module('starter', ['ionic','ngCordova', 'starter.directives', 'starter.f
       cache: false
 
     })
+    .state('result', {
+      url: "/result/:won/:score",
+      templateUrl: "templates/result.html",
+      controller: 'ResultCtrl',
+      cache: false
+
+    })
     .state('start', {
       url: "/",
       templateUrl: "templates/start.html",

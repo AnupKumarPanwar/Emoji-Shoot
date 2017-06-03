@@ -35,16 +35,23 @@ controllers
 		
 		document.addEventListener('onAdDismiss',function(data){
 			// alert(data.adType);
+
+			if (!$scope.game.challengeMod) {
 			if(data.adType == 'rewardvideo') {
 				$scope.game.cash=Number($scope.game.cash)+parseInt(Number($scope.game.score)/10);
 				localStorage.cash=$scope.game.cash;	
-				$scope.game.score=0;
+				// $scope.game.score=0;
 			}
 			else if(data.adType == 'interstitial' && $state.current.name!="game") {
 				$scope.game.cash=Number($scope.game.cash)+parseInt(Number($scope.game.score)/15);
 				localStorage.cash=$scope.game.cash;	
-				$scope.game.score=0;
+				// $scope.game.score=0;
 			}
+		}
+		else
+		{
+			$scope.game.challengeMod=!$scope.game.challengeMod;
+		}
 
 
 		});
@@ -57,7 +64,7 @@ controllers
 		if ($scope.game.challengeMod==true)
 		 {
 			// alert($scope.game.challengeMod);
-			$scope.game.challengeMod=!$scope.game.challengeMod;
+			// $scope.game.challengeMod=!$scope.game.challengeMod;
 
 			if ($scope.game.cash>=Number($scope.game.bid))
 			{
@@ -74,27 +81,30 @@ controllers
 		 if ($scope.game.challengeId!=0 && $scope.game.challengeId!='0') 
 		 {
 					// $scope.game.challengeMod=!$scope.game.challengeMod;
-					alert('accepted');
+					// alert('accepted');
 		 		$http.get('http://chatburn.16mb.com/emojishoot/acceptchallenge.php?amount='+$scope.game.bid+'&userid='+$scope.game.userId+'&score='+$scope.game.score)
 				.then(function(data){
 					$scope.game.challengeId=0;
 					if (data.data.result=='lost') 
 					{
-						$scope.game.cash-=Number($scope.game.bid);
+						// alert('Aww! You lost the Challenge :( Your opponent scored '+data.data.score+' points.');
+						$state.go('result', {won:2, score:data.data.score});
+						$scope.game.cash=Number($scope.game.cash)-Number($scope.game.bid);
 						localStorage.cash=scope.game.cash;
-						alert('Sorry! You lost the Challenge :(\nYour opponent scored '+data.data.score+' points.');
 					}
 					else if (data.data.result=='won') 
 					{
-						$scope.game.cash+=Number($scope.game.bid);
+						// alert('Awesome! You won the Challenge :) Your opponent scored just '+data.data.score+' points.');
+						$state.go('result', {won:1, score:data.data.score});
+						$scope.game.cash=Number($scope.game.cash)+Number($scope.game.bid);
 						localStorage.cash=scope.game.cash;
-						alert('Awesome! You won the Challenge :)\nYour opponent scored just '+data.data.score+' points.');
 					}
 					else if (data.data.result=='tie') 
 					{
 						// $scope.game.cash-=Number($scope.game.bid);
+						// alert('Cool! It\'s a tie :| Your opponent also scored '+data.data.score+' points.');
+						$state.go('result', {won:3, score:data.data.score});
 						localStorage.cash=scope.game.cash;
-						alert('Awww! It\'s a tie :|\nYour opponent also scored '+data.data.score+' points.');
 					}
 				});
 		 }

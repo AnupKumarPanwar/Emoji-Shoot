@@ -33,6 +33,9 @@
         },
         "onesignal-cordova-plugin": {
             "PACKAGE_NAME": "com.anupkumarpanwar.game.emoji.shoot.dynamite"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.anupkumarpanwar.game.emoji.shoot.dynamite"
         }
     },
     "dependent_plugins": {
