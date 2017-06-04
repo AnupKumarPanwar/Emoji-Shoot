@@ -7,9 +7,6 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.emojimon715922"
-        },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.emojimon715922"
         },

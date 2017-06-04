@@ -104,9 +104,6 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.emojimon715922"
-        },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.emojimon715922"
         },
@@ -221,7 +218,6 @@
         }
     ],
     "plugin_metadata": {
-        "cordova-plugin-console": "1.0.7",
         "cordova-plugin-device": "1.1.6",
         "cordova-plugin-splashscreen": "4.0.3",
         "cordova-plugin-statusbar": "2.2.3",
